@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Estado = require('./estadoModel');
 const Categoria = require('./categoriaModel');
+const Formacao = require('./formacaoModel');
 const AppError = require('./../utils/appError');
 const ErrorMessage = require('./../utils/error');
 
@@ -24,7 +25,7 @@ const licaoSchema = new mongoose.Schema({
   },
   categoria: {
     type: Object,
-    required: true
+    required: false
   },
   createdAt: {
     type: Date,
@@ -34,10 +35,14 @@ const licaoSchema = new mongoose.Schema({
 });
 
 licaoSchema.pre('save', async function(next) {
-  this.categoria = await Categoria.findById(this.categoria);
+  if(this.categoria){
+    this.categoria = await Categoria.findById(this.categoria);
+    if (!this.categoria) return next(new AppError(ErrorMessage[21].message, 400));
+  }
+  this.formacao = await Formacao.findById(this.formacao);
   this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
 
-  if (!this.categoria) return next(new AppError(ErrorMessage[21].message, 400));
+  if (!this.formacao) return next(new AppError('Falta a Formação na Lição', 400));
   if (!this.estado) return next(new AppError(ErrorMessage[22].message, 400));
 
   next();

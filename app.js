@@ -18,7 +18,7 @@ const solicitacaoRouter = require('./routes/solicitacaoRouter');
 
 const marcacaoRouter = require('./routes/marcacaoRouter');
 const licaoRouter = require('./routes/licaoRoutes');
-const formacaoRouter = require('./routes/formadorRoutes');
+const formacaoRouter = require('./routes/formacaoRoutes');
 
 const favoriteServiceRoutes = require('./routes/favoriteServiceRoutes');
 const planejamentoRoutes = require('./routes/planejamentoRoutes');

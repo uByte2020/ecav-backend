@@ -58,7 +58,7 @@ exports.getLicoesbyCategoria = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getLicoesByFormacao = (req, res, next) => {
+exports.getLicoesByFormacao = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
     Service.find({ 'formacao.nome': req.params.formacao }),
     req.query
@@ -76,8 +76,7 @@ exports.getLicoesByFormacao = (req, res, next) => {
       docs
     }
   });
-};
-
+});
 
 exports.getLicao = factory.getOne(Licao);
 exports.getAllLicoes = factory.getAll(Licao);

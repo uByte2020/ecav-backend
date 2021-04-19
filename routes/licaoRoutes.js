@@ -5,6 +5,7 @@ const authController = require('../controllers/authController');
 const router = express.Router({ mergeParams: true });
 
 router.route('/:id').get(licaoController.getLicao);
+router.route('/').get(licaoController.getAllLicoes);
 
 router
   .route('/byCategoria/:categoria')
@@ -18,6 +19,7 @@ router.use(authController.protect);
 
 router.use(authController.restrictTo(0, 1));
 
+router.route('/').post(licaoController.validateFilds,licaoController.createLicao);
 
 router
   .route('/:id')

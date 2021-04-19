@@ -18,12 +18,16 @@ router
     formadorController.createMarcacao
   );
 
-router
+router 
   .route('/MyMarcacoes')
   .get(
     formadorController.getMyMarcacoes,
     formadorController.getAllMarcacoes
   );
+
+  router
+  .route('/')
+  .get(authController.restrictTo(0),formadorController.getAllMarcacoes);
 
 router.use(authController.restrictTo(0, 1));
 
