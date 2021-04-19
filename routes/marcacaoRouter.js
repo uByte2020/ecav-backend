@@ -28,7 +28,7 @@ router
 router.use(authController.restrictTo(0, 1));
 
 router
-  .route('/aluno/:alunoId')
+  .route('/byAluno/:alunoId')
   .get(
     formadorController.getAlunoMarcacaos,
     formadorController.getAllMarcacoes
@@ -36,7 +36,7 @@ router
   .post(formadorController.createMarcacao);
 
   router
-  .route('/formador/:formadorId')
+  .route('/byFormador/:formadorId')
   .get(
     formadorController.getFormadorMarcacaos,
     formadorController.getAllMarcacoes
