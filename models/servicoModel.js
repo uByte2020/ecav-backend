@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Estado = require('./estadoModel');
 const Categoria = require('./categoriaModel');
 const Pacote = require('./pacoteModel');
-const AppError = require('./../utils/appError');
+const AppError = require('../utils/appError');
 const ErrorMessage = require('./../utils/error');
 
 const servicoSchema = new mongoose.Schema({
