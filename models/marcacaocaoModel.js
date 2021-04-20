@@ -9,10 +9,6 @@ const marcacaoSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Uma Marcação deve ter uma Data']
   },
-  dataHora: {
-    type: Date,
-    required: [true, 'Uma Marcação deve ter uma Hora']
-  },
   estado: {
     type: Object,
     required: [true, 'Uma Marcação deve ter uma Estado']
