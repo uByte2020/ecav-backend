@@ -79,18 +79,18 @@ const importData = async () => {
     });
     await Servico.create(servicos);
     
-    formacoes.forEach(el => {
-      el.categorias = [categoriasResult[0]._id];
-      el.formadores = [usersResult._id];
-    });
+    // formacoes.forEach(el => {
+    //   el.categorias = [categoriasResult[0]._id];
+    //   el.formadores = [usersResult._id];
+    // });
     
     const formacoesResults = await Formacao.create(formacoes);
     
-    licoes.forEach(el => {
-      el.categoria = categoriasResult[0]._id;
-      el.formacao = formacoesResults[0]._id;
-    });
-    await Licao.create(licoes);
+    // licoes.forEach(el => {
+    //   el.categoria = categoriasResult[0]._id;
+    //   el.formacao = formacoesResults[0]._id;
+    // });
+    // await Licao.create(licoes);
 
     console.log('Data successfully loaded!');
   } catch (err) {

@@ -17,28 +17,28 @@
         "nome": "Pesados",
         "descrcao": "Av 21 de Jan Morro Bento",
         "estado": 3,
-        "categorias": ["5e78c66ae39a972c6877f60c"],
-        "formadores": ["5e78c1b47ce9380e90bdd17b"]
+        "categorias": [],
+        "formadores": []
     },
     {
         "nome": "Ciclomotores",
         "descrcao": "Av 21 de Jan Morro Bento",
         "estado": 3,
-        "categorias": ["5e78c66ae39a972c6877f60c"],
-        "formadores": ["5e78c1b47ce9380e90bdd17b"]
+        "categorias": [],
+        "formadores": []
     },
     {
         "nome": "Rodoviários",
         "descrcao": "Av 21 de Jan Morro Bento",
         "estado": 3,
-        "categorias": ["5e78c66ae39a972c6877f60c"],
-        "formadores": ["5e78c1b47ce9380e90bdd17b"]
+        "categorias": [],
+        "formadores": []
     },
     {
         "nome": "Multimédia",
         "descrcao": "Av 21 de Jan Morro Bento",
         "estado": 3,
-        "categorias": ["5e78c66ae39a972c6877f60c"],
-        "formadores": ["5e78c1b47ce9380e90bdd17b"]
+        "categorias": [],
+        "formadores": []
     }
   ]

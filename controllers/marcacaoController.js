@@ -1,4 +1,5 @@
 const Marcacao = require('../models/marcacaocaoModel');
+const Formador = require('../models/userModel');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
@@ -21,6 +22,14 @@ exports.getFormadorMarcacaos = (req, res, next) => {
   next();
 };
 
+const addDisponibilidadeFormador = async (formadorId, data) => {
+  const old_doc = await Formador.findById(formadorId);
+  if (!old_doc) return;
+  old_doc.indisponibilidade.push(data);
+  await Formador.findByIdAndUpdate(formadorId, old_doc, {
+    runValidators: true
+  });
+};
 
 exports.validateData = (req, res, next) => {
   // if (!req.body.licao) req.body.licao = req.params.licaoId;
@@ -29,6 +38,18 @@ exports.validateData = (req, res, next) => {
   req.body.estado = 3;
   next();
 };
+
+exports.createMarcacao = catchAsync(async (req, res, next) => {
+  await addDisponibilidadeFormador(req.body.formador, req.body.data);
+  const doc = await Marcacao.create(req.body);
+  // this.createLogs(req.user.id, Marcacao, null, doc, req.method);
+  res.status(201).json({
+    status: 'success',
+    data: {
+      doc
+    }
+  });
+});
 
 exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Marcacao.find(), req.query)
@@ -57,6 +78,6 @@ exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
 
 exports.getMarcacao = factory.getOne(Marcacao);
 exports.getAllMarcacoes = factory.getAll(Marcacao);
-exports.createMarcacao = factory.createOne(Marcacao);
+// exports.createMarcacao = factory.createOne(Marcacao);
 exports.updateMarcacao = factory.updateOne(Marcacao);
 exports.deleteMarcacao = factory.deleteOne(Marcacao);
