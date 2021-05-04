@@ -26,9 +26,14 @@ const addDisponibilidadeFormador = async (formadorId, data) => {
   const old_doc = await Formador.findById(formadorId);
   if (!old_doc) return;
   old_doc.indisponibilidade.push(data);
-  await Formador.findByIdAndUpdate(formadorId, old_doc, {
-    runValidators: true
-  });
+  await Formador.findByIdAndUpdate(
+    { _id: formadorId },
+    { $addToSet: { indisponibilidade: data } },
+    {
+      runValidators: true,
+      upsert: true
+    }
+  );
 };
 
 exports.validateData = (req, res, next) => {
@@ -40,8 +45,27 @@ exports.validateData = (req, res, next) => {
 };
 
 exports.createMarcacao = catchAsync(async (req, res, next) => {
-  await addDisponibilidadeFormador(req.body.formador, req.body.data);
-  const doc = await Marcacao.create(req.body);
+  let doc;
+  const old_doc = await Marcacao.findOne({
+    data: req.body.data,
+    licao: req.body.licao,
+    formador: req.body.formador
+  });
+  if (old_doc) {
+    doc = await Marcacao.findByIdAndUpdate(
+      { _id: old_doc._id },
+      { $addToSet: { alunos: req.body.aluno } },
+      {
+        new: true, //Para devolver o documento actualizado
+        runValidators: true,
+        upsert: true
+      }
+    );
+  }  else  {
+    await addDisponibilidadeFormador(req.body.formador, req.body.data);
+    doc = await Marcacao.create(req.body);
+  }
+  
   // this.createLogs(req.user.id, Marcacao, null, doc, req.method);
   res.status(201).json({
     status: 'success',

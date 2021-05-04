@@ -19,8 +19,8 @@ const marcacaoSchema = new mongoose.Schema({
     ref: 'licoes',
     required: [true, 'Uma Marcação deve ter um Lições']
   },
-  aluno: {
-    type: mongoose.Schema.ObjectId,
+  alunos: {
+    type: [mongoose.Schema.ObjectId],
     ref: 'users',
     required: true
   },
