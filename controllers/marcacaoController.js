@@ -37,12 +37,14 @@ exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
     .paginate();
 
   const docsTemp = await features.query;
-
-  const docs = docsTemp
+  
+  let docs = docsTemp
     .filter(doc => {
       return doc.formador._id.toString() === req.params.formadorId;
     })
     .map(doc => doc.aluno);
+  
+    docs = docs.filter((aluno, i) => docs.indexOf(aluno) === i);
 
   res.status(200).json({
     status: 'success',

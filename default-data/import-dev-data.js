@@ -6,6 +6,8 @@ const Estado = require('./../models/estadoModel');
 const Pacote = require('./../models/pacoteModel');
 const Perfil = require('./../models/perfilModel');
 const Servico = require('./../models/servicoModel');
+const Formacao = require('./../models/formacaoModel');
+const Licao = require('./../models/licaoModel');
 const User = require('./../models/userModel');
 const SubCategoria = require('./../models/subCategoriaModel');
 
@@ -47,6 +49,12 @@ const perfis = JSON.parse(
 const servicos = JSON.parse(
   fs.readFileSync(`${__dirname}/servicos.json`, 'utf-8')
 );
+const formacoes = JSON.parse(
+  fs.readFileSync(`${__dirname}/formacao.json`, 'utf-8')
+);
+const licoes = JSON.parse(
+  fs.readFileSync(`${__dirname}/licoes.json`, 'utf-8')
+);
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 
 // IMPORT DATA INTO DB
@@ -70,6 +78,19 @@ const importData = async () => {
       el.fornecedor = usersResult._id;
     });
     await Servico.create(servicos);
+    
+    formacoes.forEach(el => {
+      el.categorias = [categoriasResult[0]._id];
+      el.formadores = [usersResult._id];
+    });
+    
+    const formacoesResults = await Formacao.create(formacoes);
+    
+    licoes.forEach(el => {
+      el.categoria = categoriasResult[0]._id;
+      el.formacao = formacoesResults[0]._id;
+    });
+    await Licao.create(licoes);
 
     console.log('Data successfully loaded!');
   } catch (err) {

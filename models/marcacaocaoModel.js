@@ -15,7 +15,8 @@ const marcacaoSchema = new mongoose.Schema({
   },
   // lições são os servicos
   licao: {
-    type: Object,
+    type: mongoose.Schema.ObjectId,
+    ref: 'licoes',
     required: [true, 'Uma Marcação deve ter um Lições']
   },
   aluno: {
@@ -42,7 +43,9 @@ marcacaoSchema.pre('save', async function(next) {
 });
 
 marcacaoSchema.pre(/^find/, async function(next) {
-  this.populate({ path: 'aluno' }).populate({ path: 'formador' });
+  this.populate({ path: 'aluno' })
+    .populate({ path: 'formador' })
+    .populate({ path: 'licao' });
   next();
 });
 

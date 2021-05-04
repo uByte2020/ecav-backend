@@ -4,10 +4,7 @@ const authController = require('../controllers/authController');
 
 const router = express.Router({ mergeParams: true });
 
-router.get(
-  '/:fornecedoId/alunos',
-  formadorController.getAlunosByFormador
-);
+router.get('/:formadorId/alunos', formadorController.getAlunosByFormador);
 
 router.use(authController.protect);
 
@@ -29,7 +26,7 @@ router
   .route('/')
   .get(authController.restrictTo(0),formadorController.getAllMarcacoes);
 
-router.use(authController.restrictTo(0, 1));
+// router.use(authController.protect);
 
 router
   .route('/byAluno/:alunoId')
