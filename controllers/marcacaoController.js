@@ -5,10 +5,8 @@ const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getMyMarcacoes = (req, res, next) => {
-  if(req.user.role.perfilCode == 1)
-    req.query.formador = req.user.id;
-  else 
-    req.query.alunos = req.user.id;
+  if (req.user.role.perfilCode == 1) req.query.formador = req.user.id;
+  else req.query.alunos = req.user.id;
   next();
 };
 
@@ -52,6 +50,9 @@ exports.createMarcacao = catchAsync(async (req, res, next) => {
     formador: req.body.formador
   });
   if (old_doc) {
+    if (old_doc.alunos.lenght >= process.env.LIMIT_ALUNO_BY_MARCACAO)
+      return next(new AppError("O limite de Alunos Por Marcação foi Atingido. Por favor, marque para outro Horário", 500));
+
     doc = await Marcacao.findByIdAndUpdate(
       { _id: old_doc._id },
       { $addToSet: { alunos: req.body.alunos } },
@@ -61,11 +62,11 @@ exports.createMarcacao = catchAsync(async (req, res, next) => {
         upsert: true
       }
     );
-  }  else  {
+  } else {
     await addDisponibilidadeFormador(req.body.formador, req.body.data);
     doc = await Marcacao.create(req.body);
   }
-  
+
   // this.createLogs(req.user.id, Marcacao, null, doc, req.method);
   res.status(201).json({
     status: 'success',
@@ -82,14 +83,14 @@ exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
     .paginate();
 
   const docsTemp = await features.query;
-  
+
   let docs = docsTemp
     .filter(doc => {
       return doc.formador._id.toString() === req.params.formadorId;
     })
     .map(doc => doc.aluno);
-  
-    docs = docs.filter((aluno, i) => docs.indexOf(aluno) === i);
+
+  docs = docs.filter((aluno, i) => docs.indexOf(aluno) === i);
 
   res.status(200).json({
     status: 'success',
