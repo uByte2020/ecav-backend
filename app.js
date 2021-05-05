@@ -15,6 +15,11 @@ const stateRouter = require('./routes/stateRoutes');
 const packageRouter = require('./routes/packageRoutes');
 const serviceRouter = require('./routes/serviceRoutes');
 const solicitacaoRouter = require('./routes/solicitacaoRouter');
+
+const marcacaoRouter = require('./routes/marcacaoRouter');
+const licaoRouter = require('./routes/licaoRoutes');
+const formacaoRouter = require('./routes/formacaoRoutes');
+
 const favoriteServiceRoutes = require('./routes/favoriteServiceRoutes');
 const planejamentoRoutes = require('./routes/planejamentoRoutes');
 const commentRoutes = require('./routes/commentRoutes');
@@ -71,6 +76,9 @@ app.use('/api/v1/estados', stateRouter);
 app.use('/api/v1/packages', packageRouter);
 app.use('/api/v1/services', serviceRouter);
 app.use('/api/v1/solicitacoes', solicitacaoRouter);
+app.use('/api/v1/marcacoes', marcacaoRouter);
+app.use('/api/v1/licoes', licaoRouter);
+app.use('/api/v1/formacoes', formacaoRouter);
 app.use('/api/v1/favoriteServices', favoriteServiceRoutes);
 app.use('/api/v1/planejamentos', planejamentoRoutes);
 app.use('/api/v1/comments', commentRoutes);

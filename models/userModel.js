@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
     type: Object,
     required: true
   },
+  indisponibilidade: {
+    type: [Date],
+    default: []
+  },
   password: {
     type: String,
     trim: true,

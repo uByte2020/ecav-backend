@@ -1,0 +1,48 @@
+[
+    {
+      "nome": "Motociclos",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": [
+        "60927c161a5dca204051ebb8",
+        "60927c161a5dca204051ebb9",
+        "60927c161a5dca204051ebba"
+      ],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    },
+    {
+      "nome": "Ligeiros",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": ["60927c161a5dca204051ebbb"],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    },
+    {
+      "nome": "Pesados",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": ["60927c161a5dca204051ebbc"],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    },
+    {
+      "nome": "Ciclomotores",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": ["60927c161a5dca204051ebb7"],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    },
+    {
+      "nome": "Rodoviários",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": ["60927c161a5dca204051ebb7"],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    },
+    {
+      "nome": "Multimédia",
+      "descrcao": "Av 21 de Jan Morro Bento",
+      "estado": 3,
+      "categorias": ["60927c161a5dca204051ebb7"],
+      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+    }
+  ]

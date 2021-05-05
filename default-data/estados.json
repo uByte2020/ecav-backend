@@ -1,11 +1,11 @@
 [
     {
-        "estado":"Activo",
-        "estadoCode":1
+      "estado": "Confirmado",
+      "estadoCode": 1
     },
     {
-        "estado":"Inativo",
-        "estadoCode":2
+      "estado": "Realizado",
+      "estadoCode": 2
     },
     {
         "estado":"Pendente",

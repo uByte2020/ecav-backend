@@ -1,7 +1,7 @@
 [
     {
         "name": "Admin",
-        "email": "admin@fiskamer.com",
+        "email": "admin@ecav.com",
         "password": "123",
         "passwordConfirm": "123",
         "role": "0",
@@ -9,8 +9,8 @@
         "endereco":"Teste Testing"
     },
     {
-        "name": "Teste Teste",
-        "email": "fiskamer@mailsac.com",
+        "name": "Daniel Almeida",
+        "email": "daniel.almeida@ecav.com",
         "password": "123",
         "passwordConfirm": "123",
         "role": "1",
@@ -18,12 +18,30 @@
         "endereco":"Teste Testing"
     },
     {
-        "name": "Teste Teste",
-        "email": "fiskamer@gmail.com",
+        "name": "Formador Teste",
+        "email": "formador@ecav.com",
         "password": "123",
         "passwordConfirm": "123",
-        "role": "2",
-        "telemovel":"+244919999991",
+        "role": "1",
+        "telemovel":"+244919999993",
         "endereco":"Teste Testing"
+    },
+    {
+        "name": "Formador1 Teste",
+        "email": "formador1@ecav.com",
+        "password": "123",
+        "passwordConfirm": "123",
+        "role": "1",
+        "telemovel":"+244919999994",
+        "endereco":"Teste Testing"
+    },
+    {
+      "name": "Josias Almeida",
+      "email": "aluno@gmail.com",
+      "password": "123",
+      "passwordConfirm": "123",
+      "role": "2",
+      "telemovel": "+244919999991",
+      "endereco": "Teste Testing"
     }
 ]

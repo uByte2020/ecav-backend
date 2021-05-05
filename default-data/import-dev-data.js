@@ -6,6 +6,9 @@ const Estado = require('./../models/estadoModel');
 const Pacote = require('./../models/pacoteModel');
 const Perfil = require('./../models/perfilModel');
 const Servico = require('./../models/servicoModel');
+const Formacao = require('./../models/formacaoModel');
+const Licao = require('./../models/licaoModel');
+const Marcacao = require('./../models/marcacaocaoModel');
 const User = require('./../models/userModel');
 const SubCategoria = require('./../models/subCategoriaModel');
 
@@ -47,29 +50,42 @@ const perfis = JSON.parse(
 const servicos = JSON.parse(
   fs.readFileSync(`${__dirname}/servicos.json`, 'utf-8')
 );
+const formacoes = JSON.parse(
+  fs.readFileSync(`${__dirname}/formacao.json`, 'utf-8')
+);
+const licoes = JSON.parse(
+  fs.readFileSync(`${__dirname}/licoes.json`, 'utf-8')
+);
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 
 // IMPORT DATA INTO DB
 const importData = async () => {
   try {
-    const categoriasResult = await Categoria.create(categorias);
-    await SubCategoria.create(subSategorias);
-    await Estado.create(estados);
-    const pacoteResults = await Pacote.create(pacotes);
-    await Perfil.create(perfis);
-    await User.create(users, { validateBeforeSave: false });
+    // 1- Descomentar e Executar o bloc de codigo abaixo
+    // const categoriasResult = await Categoria.create(categorias);
+    // await SubCategoria.create(subSategorias);
+    // await Estado.create(estados);
+    // const pacoteResults = await Pacote.create(pacotes);
+    // await Perfil.create(perfis);
+    // await User.create(users, { validateBeforeSave: false });
 
-    const usersResult = await User.findOne(
-      { 'role.perfilCode': 1 },
-      { _id: 1 }
-    );
+    // const usersResult = await User.findOne(
+    //   { 'role.perfilCode': 1 },
+    //   { _id: 1 }
+    // );
 
-    servicos.forEach(el => {
-      el.categoria = categoriasResult[0]._id;
-      el.pacote = pacoteResults[0]._id;
-      el.fornecedor = usersResult._id;
-    });
-    await Servico.create(servicos);
+    // servicos.forEach(el => {
+    //   el.categoria = categoriasResult[0]._id;
+    //   el.pacote = pacoteResults[0]._id;
+    //   el.fornecedor = usersResult._id;
+    // });
+    // await Servico.create(servicos);
+    
+    // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formadores no ficheiro formacao.js
+    // const formacoesResults = await Formacao.create(formacoes);
+    
+    // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formacao no ficheiro licoes.js
+    // await Licao.create(licoes);
 
     console.log('Data successfully loaded!');
   } catch (err) {
@@ -88,6 +104,9 @@ const deleteData = async () => {
     await Perfil.deleteMany();
     await Servico.deleteMany();
     await User.deleteMany();
+    await Formacao.deleteMany();
+    await Licao.deleteMany();
+    await Marcacao.deleteMany();
     console.log('Data successfully deleted!');
   } catch (err) {
     console.log(err);

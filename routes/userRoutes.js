@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('./../controllers/userController');
 const authController = require('./../controllers/authController');
 const solicitacaoRouter = require('./solicitacaoRouter');
+const marcacaoRouter = require('./marcacaoRouter');
 const favoriteServiceRoutes = require('./favoriteServiceRoutes');
 const serviceRouter = require('./serviceRoutes');
 
@@ -33,6 +34,13 @@ router.use(
   authController.restrictTo(0),
   solicitacaoRouter
 );
+
+router.use(
+  '/marcacoes',
+  authController.restrictTo(0),
+  marcacaoRouter
+);
+
 router.use(
   '/:userId/favourites',
   authController.restrictTo(0),
