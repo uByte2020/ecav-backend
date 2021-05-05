@@ -43,7 +43,7 @@ marcacaoSchema.pre('save', async function(next) {
 });
 
 marcacaoSchema.pre(/^find/, async function(next) {
-  this.populate({ path: 'aluno' })
+  this.populate({ path: 'alunos' })
     .populate({ path: 'formador' })
     .populate({ path: 'licao' });
   next();

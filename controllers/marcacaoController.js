@@ -8,12 +8,12 @@ exports.getMyMarcacoes = (req, res, next) => {
   if(req.user.role.perfilCode == 1)
     req.query.formador = req.user.id;
   else 
-    req.query.aluno = req.user.id;
+    req.query.alunos = req.user.id;
   next();
 };
 
 exports.getAlunoMarcacaos = (req, res, next) => {
-  if (req.params.alunoId) req.query.aluno = req.params.alunoId;
+  if (req.params.alunoId) req.query.alunos = req.params.alunoId;
   next();
 };
 
@@ -38,7 +38,7 @@ const addDisponibilidadeFormador = async (formadorId, data) => {
 
 exports.validateData = (req, res, next) => {
   // if (!req.body.licao) req.body.licao = req.params.licaoId;
-  if (!req.body.aluno) req.body.aluno = req.user.id;
+  if (!req.body.alunos) req.body.alunos = req.user.id;
   req.body.data = new Date(req.body.data);
   req.body.estado = 3;
   next();
@@ -54,7 +54,7 @@ exports.createMarcacao = catchAsync(async (req, res, next) => {
   if (old_doc) {
     doc = await Marcacao.findByIdAndUpdate(
       { _id: old_doc._id },
-      { $addToSet: { alunos: req.body.aluno } },
+      { $addToSet: { alunos: req.body.alunos } },
       {
         new: true, //Para devolver o documento actualizado
         runValidators: true,

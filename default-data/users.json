@@ -36,12 +36,12 @@
         "endereco":"Teste Testing"
     },
     {
-        "name": "Teste Teste",
-        "email": "aluno@gmail.com",
-        "password": "123",
-        "passwordConfirm": "123",
-        "role": "2",
-        "telemovel":"+244919999991",
-        "endereco":"Teste Testing"
+      "name": "Josias Almeida",
+      "email": "aluno@gmail.com",
+      "password": "123",
+      "passwordConfirm": "123",
+      "role": "2",
+      "telemovel": "+244919999991",
+      "endereco": "Teste Testing"
     }
 ]
