@@ -1,7 +1,10 @@
+const moment = require('moment');
 const Marcacao = require('../models/marcacaocaoModel');
 const Formador = require('../models/userModel');
+const Parameter = require('../models/parameterModel');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
+const AppError = require('./../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getMyMarcacoes = (req, res, next) => {
@@ -35,26 +38,67 @@ const addDisponibilidadeFormador = async (formadorId, data) => {
 };
 
 exports.validateData = (req, res, next) => {
-  // if (!req.body.licao) req.body.licao = req.params.licaoId;
   if (!req.body.alunos) req.body.alunos = req.user.id;
   req.body.data = new Date(req.body.data);
   req.body.estado = 3;
   next();
 };
 
-exports.createMarcacao = catchAsync(async (req, res, next) => {
-  let doc;
+exports.checkLimitAlunosMarcacao = catchAsync(async (req, res, next) => {
   const old_doc = await Marcacao.findOne({
     data: req.body.data,
     licao: req.body.licao,
     formador: req.body.formador
   });
-  if (old_doc) {
-    if (old_doc.alunos.lenght >= process.env.LIMIT_ALUNO_BY_MARCACAO)
+  if (old_doc && (old_doc.alunos.lenght >= (old_doc.licao.formacao.quantidadeAlunoMax||process.env.LIMIT_ALUNO_BY_MARCACAO)))
       return next(new AppError("O limite de Alunos Por Marcação foi Atingido. Por favor, marque para outro Horário", 500));
+  req.old_doc = old_doc;
+  next();
+});
 
+exports.checkLimitMarcacaoPorDia = catchAsync(async (req, res, next) => {
+  const startDate = moment(req.body.data).startOf('day');
+  const endDate = moment(req.body.data).endOf('day');
+  const old_doc = await Marcacao.find({
+    data: {
+      $gte: startDate, 
+      $lt: endDate
+    },
+    alunos: req.body.alunos
+  });
+  if (old_doc.length>0)
+      return next(new AppError("Apenas 1 Marcação por dia", 500));
+  next();
+});
+
+exports.checkLimitMarcacaoPorTempo = catchAsync(async (req, res, next) => {
+
+  const parameters = await Parameter.find();
+
+  if(!parameters) return next();
+
+  const parameter = parameters[0];
+
+  const startDate = moment(req.body.data).startOf('day');
+  const endDate = moment(req.body.data).add(parameter.periodoDias, 'days').endOf('day');
+  const docs = await Marcacao.find({
+    data: {
+      $gte: startDate, 
+      $lt: endDate
+    },
+    alunos: req.body.alunos
+  });
+  if (docs && docs.length>=parameter.marcacaoPorPeriodo)
+      return next(new AppError("Apenas "+parameter.marcacaoPorPeriodo+" Marcações por "+parameter.periodoDias+" dias!", 500));
+  next();
+});
+
+exports.createMarcacao = catchAsync(async (req, res, next) => {
+  let doc = {};
+  
+  if (req.old_doc) {
     doc = await Marcacao.findByIdAndUpdate(
-      { _id: old_doc._id },
+      { _id: req.old_doc._id },
       { $addToSet: { alunos: req.body.alunos } },
       {
         new: true, //Para devolver o documento actualizado

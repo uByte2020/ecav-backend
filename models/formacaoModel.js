@@ -17,16 +17,28 @@ const formacaoSchema = new mongoose.Schema({
     type: Object,
     required: [true, 'Um Serviço deve ter um estado']
   },
-  formadores: [{
-    type: mongoose.Schema.ObjectId,
-    ref: 'users',
-    required: true
-  }],
-  categorias: [{
-    type: mongoose.Schema.ObjectId,
-    ref: 'categorias',
-    required: false
-  }],
+  formadores: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'users',
+      required: true
+    }
+  ],
+  categorias: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'categorias',
+      required: false
+    }
+  ],
+  horarios: {
+    type: [Date],
+    default: []
+  },
+  quantidadeAlunoMax:   {
+    type: Number,
+    default: 12
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

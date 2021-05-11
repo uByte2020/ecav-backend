@@ -8,6 +8,7 @@ const Perfil = require('./../models/perfilModel');
 const Servico = require('./../models/servicoModel');
 const Formacao = require('./../models/formacaoModel');
 const Licao = require('./../models/licaoModel');
+const Parameter = require('./../models/parameterModel'); 
 const Marcacao = require('./../models/marcacaocaoModel');
 const User = require('./../models/userModel');
 const SubCategoria = require('./../models/subCategoriaModel');
@@ -56,39 +57,43 @@ const formacoes = JSON.parse(
 const licoes = JSON.parse(
   fs.readFileSync(`${__dirname}/licoes.json`, 'utf-8')
 );
+
+const parameters = JSON.parse(
+  fs.readFileSync(`${__dirname}/parameters.json`, 'utf-8')
+);
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 
 // IMPORT DATA INTO DB
 const importData = async () => {
   try {
-    // 1- Descomentar e Executar o bloc de codigo abaixo
-    // const categoriasResult = await Categoria.create(categorias);
-    // await SubCategoria.create(subSategorias);
-    // await Estado.create(estados);
-    // const pacoteResults = await Pacote.create(pacotes);
-    // await Perfil.create(perfis);
-    // await User.create(users, { validateBeforeSave: false });
+        // 1- Descomentar e Executar o bloc de codigo abaixo
+        // const categoriasResult = await Categoria.create(categorias);
+        // await SubCategoria.create(subSategorias);
+        // await Estado.create(estados);
+        // const pacoteResults = await Pacote.create(pacotes);
+        // await Perfil.create(perfis);
+        // await User.create(users, { validateBeforeSave: false });
+        // await Parameter.create(parameters);
+        // const usersResult = await User.findOne(
+        //   { 'role.perfilCode': 1 },
+        //   { _id: 1 }
+        // );
 
-    // const usersResult = await User.findOne(
-    //   { 'role.perfilCode': 1 },
-    //   { _id: 1 }
-    // );
+        // servicos.forEach(el => {
+        //   el.categoria = categoriasResult[0]._id;
+        //   el.pacote = pacoteResults[0]._id;
+        //   el.fornecedor = usersResult._id;
+        // });
+        // await Servico.create(servicos);
 
-    // servicos.forEach(el => {
-    //   el.categoria = categoriasResult[0]._id;
-    //   el.pacote = pacoteResults[0]._id;
-    //   el.fornecedor = usersResult._id;
-    // });
-    // await Servico.create(servicos);
-    
-    // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formadores no ficheiro formacao.js
-    // const formacoesResults = await Formacao.create(formacoes);
-    
-    // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formacao no ficheiro licoes.js
-    // await Licao.create(licoes);
+        // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formadores no ficheiro formacao.js
+        // const formacoesResults = await Formacao.create(formacoes);
 
-    console.log('Data successfully loaded!');
-  } catch (err) {
+        // 2- Comentar o Bloco acima e descomentar o bloco abaixo. Adicionando os ids de categoria e formacao no ficheiro licoes.js
+        // await Licao.create(licoes);
+
+        console.log('Data successfully loaded!');
+      } catch (err) {
     console.log(err);
   }
   process.exit();

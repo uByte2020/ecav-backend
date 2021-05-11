@@ -12,6 +12,9 @@ router
   .route('/')
   .post(
     formadorController.validateData,
+    formadorController.checkLimitMarcacaoPorDia,
+    formadorController.checkLimitAlunosMarcacao,
+    formadorController.checkLimitMarcacaoPorTempo,
     formadorController.createMarcacao
   );
 

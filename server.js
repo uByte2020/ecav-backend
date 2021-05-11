@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+// const path = require('path');
 
 process.on('uncaughtException', err => {
   process.exit(1);
 });
+
+// dotenv.config({ path: path.resolve(__dirname, './config.env') });
 
 dotenv.config({ path: './config.env' });
 
