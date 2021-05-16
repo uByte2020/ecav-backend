@@ -20,7 +20,8 @@ const licaoSchema = new mongoose.Schema({
     required: [true, 'Um Serviço deve ter um estado']
   },
   formacao: {
-    type: Object,
+    type: mongoose.Schema.ObjectId,
+    ref: 'formacoes',
     required: true
   },
   categoria: {
@@ -29,27 +30,55 @@ const licaoSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
-    select: false
+    default: Date.now()
+    // select: false
   }
+},{
+  toJSON: { virtuals: true},
+  toObject: { virtuals: true},
 });
 
 licaoSchema.pre('save', async function(next) {
-  if(this.categoria){
-    this.categoria = await Categoria.findById(this.categoria);
-    if (!this.categoria) return next(new AppError(ErrorMessage[21].message, 400));
-  }
-  this.formacao = await Formacao.findById(this.formacao);
-  this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
+                                               if (this.categoria) {
+                                                 this.categoria = await Categoria.findById(
+                                                   this.categoria
+                                                 );
+                                                 if (!this.categoria)
+                                                   return next(
+                                                     new AppError(
+                                                       ErrorMessage[21].message,
 
-  if (!this.formacao) return next(new AppError('Falta a Formação na Lição', 400));
-  if (!this.estado) return next(new AppError(ErrorMessage[22].message, 400));
+                                                       400
+                                                     )
+                                                   );
+                                               }
+                                               // this.formacao = await Formacao.findById(this.formacao);
+                                               this.estado = await Estado.findOne(
+                                                 {
+                                                   estadoCode: {
+                                                     $eq: this.estado
+                                                   }
+                                                 }
+                                               );
 
-  next();
-});
+                                               // if (!this.formacao) return next(new AppError('Falta a Formação na Lição', 400));
+                                               if (!this.estado)
+                                                 return next(
+                                                   new AppError(
+                                                     ErrorMessage[22].message,
+
+                                                     400
+                                                   )
+                                                 );
+
+                                               next();
+                                             });
 
 // licaoSchema.pre(/^find/, async function(next) {
-//   this.populate({ path: 'fornecedor' });
+//   this.populate({
+//     path: 'formacao',
+//     select: '_id nome estado formadores categorias horarios quantidadeAlunoMax -licoes'
+//   });
 //   next();
 // });
 

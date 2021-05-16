@@ -112,6 +112,7 @@ const deleteData = async () => {
     await Formacao.deleteMany();
     await Licao.deleteMany();
     await Marcacao.deleteMany();
+    await Parameter.deleteMany();
     console.log('Data successfully deleted!');
   } catch (err) {
     console.log(err);

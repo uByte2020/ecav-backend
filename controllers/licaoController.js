@@ -78,8 +78,47 @@ exports.getLicoesByFormacao = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getLicao = factory.getOne(Licao);
-exports.getAllLicoes = factory.getAll(Licao);
+exports.getAllLicoes = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(
+    Licao.find().populate({
+      path: 'formacao',
+      select:
+        '_id nome estado formadores categorias horarios quantidadeAlunoMax'
+    }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const docs = await features.query;
+
+  res.status(200).json({
+    status: 'success',
+    results: docs.length,
+    data: {
+      docs
+    }
+  });
+});
+
+exports.getLicao = catchAsync(async (req, res, next) => {
+  const doc = await Licao.findById(req.params.id).populate({
+    path: 'formacao',
+    select:
+      '_id nome estado formadores categorias horarios quantidadeAlunoMax'
+  });
+  res.status(200).json({
+    status: 'success',
+    data: {
+      doc
+    }
+  });
+});
+
+// exports.getLicao = factory.getOne(Licao);
+// exports.getAllLicoes = factory.getAll(Licao);
 exports.createLicao = factory.createOne(Licao);
 exports.updateLicao = factory.updateOne(Licao);
 exports.deleteLicao = factory.deleteOne(Licao);

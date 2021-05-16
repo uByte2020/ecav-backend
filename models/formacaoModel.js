@@ -7,7 +7,8 @@ const ErrorMessage = require('./../utils/error');
 const formacaoSchema = new mongoose.Schema({
   nome: {
     type: String,
-    required: [true, 'Um Serviço deve ter um nome']
+    required: [true, 'Um Serviço deve ter um nome'],
+    unique: true
   },
   descricao: {
     type: String,
@@ -35,17 +36,25 @@ const formacaoSchema = new mongoose.Schema({
     type: [Date],
     default: []
   },
-  quantidadeAlunoMax:   {
+  quantidadeAlunoMax: {
     type: Number,
     default: 12
   },
   createdAt: {
     type: Date,
     default: Date.now(),
-    select: false
-  }
+    // select: false
+  },
+},{
+  toJSON: { virtuals: true},
+  toObject: { virtuals: true},
 });
 
+formacaoSchema.virtual('licoes', {
+  ref: 'licoes',
+  foreignField: 'formacao',
+  localField: '_id'
+});
 
 formacaoSchema.pre('save', async function(next) {
   this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
@@ -54,7 +63,12 @@ formacaoSchema.pre('save', async function(next) {
 });
 
 formacaoSchema.pre(/^find/, async function(next) {
-  this.populate({ path: 'formadores' }).populate({path: 'categorias'});
+  this.populate({ path: 'formadores', select: '_id name email endereco telemovel indisponibilidade' })
+    .populate({ path: 'categorias' })
+    // .populate({
+    //   path: 'licoes',
+    //   select: '_id nome estado categoria -formacao'
+    // });
   next();
 });
 

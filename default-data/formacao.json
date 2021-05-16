@@ -4,45 +4,45 @@
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
       "categorias": [
-        "60927c161a5dca204051ebb8",
-        "60927c161a5dca204051ebb9",
-        "60927c161a5dca204051ebba"
-      ],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+                      "60a030e14397662bacdb3f38",
+                      "60a030e14397662bacdb3f39",
+                      "60a030e14397662bacdb3f3a"
+                    ],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     },
     {
       "nome": "Ligeiros",
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
-      "categorias": ["60927c161a5dca204051ebbb"],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+      "categorias": ["60a030e14397662bacdb3f3b"],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     },
     {
       "nome": "Pesados",
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
-      "categorias": ["60927c161a5dca204051ebbc"],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+      "categorias": ["60a030e14397662bacdb3f3c"],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     },
     {
       "nome": "Ciclomotores",
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
-      "categorias": ["60927c161a5dca204051ebb7"],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+      "categorias": ["60a030e14397662bacdb3f37"],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     },
     {
       "nome": "Rodoviários",
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
-      "categorias": ["60927c161a5dca204051ebb7"],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+      "categorias": ["60a030e14397662bacdb3f37"],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     },
     {
       "nome": "Multimédia",
       "descrcao": "Av 21 de Jan Morro Bento",
       "estado": 3,
-      "categorias": ["60927c161a5dca204051ebb7"],
-      "formadores": ["60927c171a5dca204051ebce", "60927c171a5dca204051ebcc"]
+      "categorias": ["60a030e14397662bacdb3f37"],
+      "formadores": ["60a030e14397662bacdb3f4c", "60a030e14397662bacdb3f4d"]
     }
   ]

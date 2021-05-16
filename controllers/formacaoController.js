@@ -3,6 +3,7 @@ const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const ErrorMessage = require('./../utils/error');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.addFormadores = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.formadores)
@@ -47,9 +48,45 @@ exports.removeFormador = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAllFormacoes = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(
+    Formacao.find().populate({
+      path: 'licoes',
+      select: '_id nome estado categoria -formacao'
+    }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
-exports.getFormacao = factory.getOne(Formacao);
-exports.getAllFormacoes = factory.getAll(Formacao);
+  const docs = await features.query;
+
+  res.status(200).json({
+    status: 'success',
+    results: docs.length,
+    data: {
+      docs
+    }
+  });
+});
+
+exports.getFormacao = catchAsync(async (req, res, next) => {
+  const doc = await Formacao.findById(req.params.id).populate({
+    path: 'licoes',
+    select: '_id nome estado categoria -formacao'
+  });
+  res.status(200).json({
+    status: 'success',
+    data: {
+      doc
+    }
+  });
+});
+
+// exports.getFormacao = factory.getOne(Formacao);
+// exports.getAllFormacoes = factory.getAll(Formacao);
 exports.createFormacao = factory.createOne(Formacao);
 exports.updateFormacao = factory.updateOne(Formacao);
 exports.deleteFormacao = factory.deleteOne(Formacao);
