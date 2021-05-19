@@ -85,6 +85,48 @@ exports.getFormacao = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.addHorario = catchAsync(async (req, res, next) => {
+  if (!req.params.id || !req.body.horario)
+    return next(new AppError(ErrorMessage[12].message, 400));
+
+  const doc = await Formacao.findOneAndUpdate(
+    { _id: req.params.id },
+    { $addToSet: { horarios: req.body.horario } },
+    {
+      new: true, //Para devolver o documento actualizado
+      runValidators: true,
+      upsert: true
+    }
+  );
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: doc
+    }
+  });
+});
+
+exports.removeHorario = catchAsync(async (req, res, next) => {
+  if (!req.params.id || !req.body.horario)
+    return next(new AppError(ErrorMessage[12].message, 400));
+
+  const doc = await Formacao.findOneAndUpdate(
+    { _id: req.params.id },
+    { $pull: { horarios: req.body.horario } },
+    {
+      new: true, //Para devolver o documento actualizado
+      runValidators: true
+    }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: doc
+    }
+  });
+});
+
 // exports.getFormacao = factory.getOne(Formacao);
 // exports.getAllFormacoes = factory.getAll(Formacao);
 exports.createFormacao = factory.createOne(Formacao);

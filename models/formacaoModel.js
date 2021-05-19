@@ -37,7 +37,8 @@ const formacaoSchema = new mongoose.Schema(
       type: [
         {
           diaSemana: { type: Number, max: 7, min: 1 },
-          hora: { type: String, trim: true }
+          hora: { type: String, trim: true },
+          duracao: { type: Number, default: 15 }
         }
       ],
       default: []
