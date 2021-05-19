@@ -4,51 +4,59 @@ const Estado = require('./estadoModel');
 const AppError = require('../utils/appError');
 const ErrorMessage = require('./../utils/error');
 
-const formacaoSchema = new mongoose.Schema({
-  nome: {
-    type: String,
-    required: [true, 'Um Serviço deve ter um nome'],
-    unique: true
-  },
-  descricao: {
-    type: String,
-    default: ''
-  },
-  estado: {
-    type: Object,
-    required: [true, 'Um Serviço deve ter um estado']
-  },
-  formadores: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'users',
-      required: true
+const formacaoSchema = new mongoose.Schema(
+  {
+    nome: {
+      type: String,
+      required: [true, 'Um Serviço deve ter um nome'],
+      unique: true
+    },
+    descricao: {
+      type: String,
+      default: ''
+    },
+    estado: {
+      type: Object,
+      required: [true, 'Um Serviço deve ter um estado']
+    },
+    formadores: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'users',
+        required: true
+      }
+    ],
+    categorias: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'categorias',
+        required: false
+      }
+    ],
+    horarios: {
+      type: [
+        {
+          diaSemana: { type: Number, max: 7, min: 1 },
+          hora: { type: String, trim: true }
+        }
+      ],
+      default: []
+    },
+    quantidadeAlunoMax: {
+      type: Number,
+      default: 12
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now()
+      // select: false
     }
-  ],
-  categorias: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'categorias',
-      required: false
-    }
-  ],
-  horarios: {
-    type: [Date],
-    default: []
   },
-  quantidadeAlunoMax: {
-    type: Number,
-    default: 12
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-    // select: false
-  },
-},{
-  toJSON: { virtuals: true},
-  toObject: { virtuals: true},
-});
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+  }
+);
 
 formacaoSchema.virtual('licoes', {
   ref: 'licoes',
@@ -63,12 +71,14 @@ formacaoSchema.pre('save', async function(next) {
 });
 
 formacaoSchema.pre(/^find/, async function(next) {
-  this.populate({ path: 'formadores', select: '_id name email endereco telemovel indisponibilidade' })
-    .populate({ path: 'categorias' })
-    // .populate({
-    //   path: 'licoes',
-    //   select: '_id nome estado categoria -formacao'
-    // });
+  this.populate({
+    path: 'formadores',
+    select: '_id name email endereco telemovel indisponibilidade'
+  }).populate({ path: 'categorias' });
+  // .populate({
+  //   path: 'licoes',
+  //   select: '_id nome estado categoria -formacao'
+  // });
   next();
 });
 
