@@ -148,7 +148,6 @@ exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
 
 exports.validateState = catchAsync(async (req, res, next) => {
   if (req.body.estado) {
-    console.log(req.body.estado);
     const estadoResult = await Estado.findOne({ estadoCode: req.body.estado });
     if (!estadoResult) return next(new AppError('Campo estado inválido!', 500));
     req.body.estado = estadoResult;
