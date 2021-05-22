@@ -50,7 +50,7 @@ router
 router
   .route('/:id')
   .get(formadorController.getMarcacao)
-  .patch(formadorController.updateMarcacao)
+  .patch(formadorController.validateState, formadorController.updateMarcacao)
   .delete(formadorController.deleteMarcacao);
 
 module.exports = router;

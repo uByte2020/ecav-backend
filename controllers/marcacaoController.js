@@ -2,6 +2,7 @@ const moment = require('moment');
 const Marcacao = require('../models/marcacaocaoModel');
 const Formador = require('../models/userModel');
 const Parameter = require('../models/parameterModel');
+const Estado = require('../models/estadoModel');
 const factory = require('./handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('./../utils/appError');
@@ -143,6 +144,16 @@ exports.getAlunosByFormador = catchAsync(async (req, res, next) => {
       docs
     }
   });
+});
+
+exports.validateState = catchAsync(async (req, res, next) => {
+  if (req.body.estado) {
+    console.log(req.body.estado);
+    const estadoResult = await Estado.findOne({ estadoCode: req.body.estado });
+    if (!estadoResult) return next(new AppError('Campo estado inválido!', 500));
+    req.body.estado = estadoResult;
+  }
+  next();
 });
 
 exports.getMarcacao = factory.getOne(Marcacao);
