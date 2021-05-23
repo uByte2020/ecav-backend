@@ -149,7 +149,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.isLogged = async (req, res, next) => {
+exports.isLogged = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
   let token;
   if (
@@ -162,7 +162,7 @@ exports.isLogged = async (req, res, next) => {
   }
 
   if (!token) {
-    return next();
+    return next(new AppError('User Não Authenticado'), 401);
   }
 
   // 2) Verification token
@@ -174,18 +174,22 @@ exports.isLogged = async (req, res, next) => {
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next();
+    return next(new AppError('User Não Authenticado'), 401);
   }
 
   // 4) Check if user changed password after the token was issued
   if (await currentUser.changedPasswordAfter(decoded.iat)) {
-    return next();
+    return next(new AppError('User Não Authenticado'), 401);
   }
 
-  req.user = currentUser;
-  res.locals.user = currentUser;
-  next();
-};
+  res.status(200).json({
+    status: 'success',
+    token,
+    data: {
+      user: currentUser
+    }
+  });
+});
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {

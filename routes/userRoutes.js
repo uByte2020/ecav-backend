@@ -8,6 +8,7 @@ const serviceRouter = require('./serviceRoutes');
 
 const router = express.Router();
 
+router.get('/isLogged', authController.isLogged);
 router.post('/signup', authController.siginup);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
