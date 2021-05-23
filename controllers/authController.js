@@ -64,8 +64,7 @@ exports.siginup = catchAsync(async (req, res, next) => {
     newUser._id
   }`;
 
-  if(false)
-  await new Email(newUser, url).sendWelcome();
+  if (false) await new Email(newUser, url).sendWelcome();
   factory.createLogs(newUser._id, User, null, newUser, req.method);
   createSendToken(newUser, 201, res);
 });
@@ -85,6 +84,15 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (!user || !(await user.correctPassword(password, user.password)))
     return next(new AppError(ErrorMessage[4].message, 400));
+
+  if (user.isBloqued)
+    return next(
+      new AppError(
+        'Utilizador Bloqueado! Entre em contacto com Administrador',
+        401
+      )
+    );
+
   factory.createLogs(user._id, User, user, null, 'Login');
   createSendToken(user, 200, res);
 });

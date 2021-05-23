@@ -85,6 +85,10 @@ const userSchema = new mongoose.Schema({
   secretUser: {
     type: Boolean,
     default: false
+  },
+  isBloqued: {
+    type: Boolean,
+    default: false
   }
 });
 
