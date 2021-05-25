@@ -104,7 +104,7 @@ exports.logout = (req, res) => {
   };
 
   res.cookie('jwt', 'loggedout', cookieOption);
-
+  const token = 'loggedout';
   res.status(200).json({
     status: 'success'
   });
