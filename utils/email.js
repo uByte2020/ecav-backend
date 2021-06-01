@@ -15,22 +15,16 @@ module.exports = class Email{
 
     newTransport(){
  
-        if(process.env.NODE_ENV === 'production'){
-            return nodemailer.createTransport({
-                service: 'SendGrid',
-                auth: {
-                    user: process.env.SENDGRID_USERNAME,
-                    pass: process.env.SENDGRID_PASSWORD
-                }
-            });
-        }
-        
         return nodemailer.createTransport({
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
+            secure: false,
             auth: {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD
+            },
+            tls: {
+                rejectUnauthorized: false
             }
         });
     }
@@ -51,13 +45,17 @@ module.exports = class Email{
             html:       html,
             text:       htmlToText.fromString(html),
         }
-        // process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-        // await this.newTransport().sendMail(mailOptions);
-        await sgMail.send(mailOptions);
+        try{
+            await this.newTransport().sendMail(
+                mailOptions
+            );
+        }catch(error){
+            console.log(error)
+        }
     }
 
     async sendWelcome(){
-        await this.send('welcome', 'Bem Vindo à Fiskamer');
+        await this.send('welcome', 'Bem Vindo à Escola de Condução Armando Víctor (ECAV)');
     }
     
     async sendPasswordReset(){
