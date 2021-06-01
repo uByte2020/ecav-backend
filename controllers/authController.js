@@ -64,7 +64,7 @@ exports.siginup = catchAsync(async (req, res, next) => {
     newUser._id
   }`;
 
-  if (false) await new Email(newUser, url).sendWelcome();
+  await new Email(newUser, url).sendWelcome();
   factory.createLogs(newUser._id, User, null, newUser, req.method);
   createSendToken(newUser, 201, res);
 });
