@@ -34,7 +34,7 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENTE_SERVER,
+    origin: process.env.CLIENTE_SERVER.split(','),
     credentials: true
   })
 );
