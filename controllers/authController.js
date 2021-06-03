@@ -16,32 +16,44 @@ const signToken = id => {
 };
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user._id);
+  const token = signToken(
+    user._id
+  );
 
   // Armazenar token no cookie, fazendo com que o mesmo seja utilizado em todas requisições,
   // e definindo-o como httpOnly, fazendo com que o token se torne inalterado
 
   const cookieOption = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 3600 * 1000
+      Date.now() +
+      process.env
+        .JWT_COOKIE_EXPIRES_IN *
+      3600 *
+      1000
     ),
     httpOnly: true
   };
 
-  if (process.env.NODE_ENV === 'production') cookieOption.secure = true;
+  // if (process.env.NODE_ENV === 'production') cookieOption.secure = true;
 
-  res.cookie('jwt', token, cookieOption);
+  res.cookie(
+    'jwt',
+    token,
+    cookieOption
+  );
 
   // Remove the password from the output
   user.password = undefined;
 
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
+  res
+    .status(statusCode)
+    .json({
+      status: 'success',
+      token,
+      data: {
+        user
+      }
+    });
 };
 
 exports.siginup = catchAsync(async (req, res, next) => {
@@ -60,9 +72,8 @@ exports.siginup = catchAsync(async (req, res, next) => {
   });
 
   // 3) Send it to user's email
-  const url = `${req.protocol}://${req.get('host')}/api/v1/users/${
-    newUser._id
-  }`;
+  const url = `${req.protocol}://${req.get('host')}/api/v1/users/${newUser._id
+    }`;
 
   await new Email(newUser, url).sendWelcome();
   factory.createLogs(newUser._id, User, null, newUser, req.method);
