@@ -22,5 +22,7 @@
   "ERROR021": "Por favor, adicione latitude e longitude",
   "ERROR022": "Está faltando categoria",
   "ERROR023": "Está faltando estado",
-  "ERROR024": "Está faltando pacote"
+  "ERROR024": "Está faltando pacote",
+  "ERROR025": "Utilizador Bloqueado! Entre em contacto com Administrador",
+  "ERROR026": "Utilizador Não Authenticado"
 }

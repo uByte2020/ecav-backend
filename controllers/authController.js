@@ -97,12 +97,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError(ErrorMessage.ERROR004, 400));
 
   if (user.isBloqued)
-    return next(
-      new AppError(
-        'Utilizador Bloqueado! Entre em contacto com Administrador',
-        401
-      )
-    );
+    return next(new AppError(ErrorMessage.ERROR025, 401));
 
   factory.createLogs(user._id, User, user, null, 'Login');
   createSendToken(user, 200, res);
@@ -173,7 +168,7 @@ exports.isLogged = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(new AppError('User Não Authenticado'), 401);
+    return next(new AppError(ErrorMessage.ERROR026), 401);
   }
 
   // 2) Verification token
@@ -185,12 +180,12 @@ exports.isLogged = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next(new AppError('User Não Authenticado'), 401);
+    return next(new AppError(ErrorMessage.ERROR026), 401);
   }
 
   // 4) Check if user changed password after the token was issued
   if (await currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(new AppError('User Não Authenticado'), 401);
+    return next(new AppError(ErrorMessage.ERROR026), 401);
   }
 
   res.status(200).json({

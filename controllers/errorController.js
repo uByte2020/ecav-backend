@@ -2,19 +2,19 @@ const AppError = require('./../utils/appError');
 const ErrorMessage = require('./../utils/error');
 
 const handleCastErrorDB = err => {
-  const message = `Invalid ${err.path}: ${err.value}.`;
+  const message = `${err.path}: ${err.value} Inválido.`;
   return new AppError(message, 400);
 };
 
 const handleDulpicateFieldDB = err => {
   const value = err.errms.match(/(["'])(\\?.)*?\1/)[0];
-  const message = `Duplicade field value: ${value}, please use another value!`;
+  const message = `Valor de campo duplicado: ${value}, por favor use outro valor!`;
   return new AppError(message, 400);
 };
 
 const handleValidationErrorDB = err => {
   const errors = Object.values(err.errors).map(el => el.message);
-  const message = `Invalid input data. ${errors.join('. ')}`;
+  const message = `Dados inválidos. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 
@@ -44,7 +44,8 @@ const sendErrorProd = (err, res) => {
   } else {
     res.status(500).json({
       status: 'error',
-      message: 'Somithing went worng!'
+      message:
+        'Lamentamos mas ocorreu um erro. Tente novamente ou Contacte o Administrado!'
     });
   }
 };
