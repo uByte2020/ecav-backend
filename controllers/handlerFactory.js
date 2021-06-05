@@ -82,7 +82,7 @@ exports.deleteOne = Model =>
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
-      return next(new AppError(ErrorMessage[13].message, 404));
+      return next(new AppError(ErrorMessage.ERROR013, 404));
     }
     this.createLogs(req.user.id, Model, old_doc, null, req.method);
     res.status(204).json({

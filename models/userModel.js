@@ -102,7 +102,7 @@ userSchema.pre('save', async function(next) {
   // eslint-disable-next-line no-restricted-globals
   if (!isNaN(this.role)) {
     this.role = await Perfil.findOne({ perfilCode: { $eq: this.role } });
-    if (!this.role) return next(new AppError(ErrorMessage[0].message, 500));
+    if (!this.role) return next(new AppError(ErrorMessage.ERROR000, 500));
   }
   next();
 });

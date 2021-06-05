@@ -6,7 +6,7 @@ const ErrorMessage = require('./../utils/error');
 
 exports.addSubCategoria = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.subCategorias)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Category.findOneAndUpdate(
     { _id: req.params.id },
@@ -28,7 +28,7 @@ exports.addSubCategoria = catchAsync(async (req, res, next) => {
 
 exports.removeSubCategoria = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.subCategoria)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Category.findOneAndUpdate(
     { _id: req.params.id },

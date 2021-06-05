@@ -53,7 +53,7 @@ licaoSchema.pre('save', async function(next) {
     if (!this.categoria)
       return next(
         new AppError(
-          ErrorMessage[21].message,
+          ErrorMessage.ERROR021,
 
           400
         )
@@ -72,7 +72,7 @@ licaoSchema.pre('save', async function(next) {
   if (!this.estado)
     return next(
       new AppError(
-        ErrorMessage[22].message,
+        ErrorMessage.ERROR022,
 
         400
       )

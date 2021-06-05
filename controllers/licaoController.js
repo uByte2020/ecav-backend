@@ -33,7 +33,7 @@ exports.validateFilds = (req, res, next) => {
       'categoria'
     )
   ) {
-    return next(new AppError(ErrorMessage[15].message, 400));
+    return next(new AppError(ErrorMessage.ERROR015, 400));
   }
   next();
 };

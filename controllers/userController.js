@@ -10,7 +10,7 @@ const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) cb(null, true);
-  else cb(new AppError(ErrorMessage[14].message, 400), false);
+  else cb(new AppError(ErrorMessage.ERROR014, 400), false);
 };
 
 const upload = multer({
@@ -45,7 +45,7 @@ const filterObj = (obj, ...allowedFields) => {
 exports.updateMe = catchAsync(async (req, res) => {
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
-    return new AppError(ErrorMessage[16].message, 400);
+    return new AppError(ErrorMessage.ERROR016, 400);
   }
 
   const filtedObect = filterObj(

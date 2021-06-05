@@ -114,9 +114,9 @@ servicoSchema.pre('save', async function(next) {
   this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
   this.pacote = await Pacote.findById(this.pacote);
 
-  if (!this.categoria) return next(new AppError(ErrorMessage[21].message, 400));
-  if (!this.estado) return next(new AppError(ErrorMessage[22].message, 400));
-  if (!this.pacote) return next(new AppError(ErrorMessage[23].message, 400));
+  if (!this.categoria) return next(new AppError(ErrorMessage.ERROR021, 400));
+  if (!this.estado) return next(new AppError(ErrorMessage.ERROR022, 400));
+  if (!this.pacote) return next(new AppError(ErrorMessage.ERROR023, 400));
 
   next();
 });

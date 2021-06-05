@@ -7,7 +7,7 @@ const APIFeatures = require('./../utils/apiFeatures');
 
 exports.addFormadores = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.formadores)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Formacao.findOneAndUpdate(
     { _id: req.params.id },
@@ -29,7 +29,7 @@ exports.addFormadores = catchAsync(async (req, res, next) => {
 
 exports.removeFormador = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.formador)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Formacao.findOneAndUpdate(
     { _id: req.params.id },
@@ -87,7 +87,7 @@ exports.getFormacao = catchAsync(async (req, res, next) => {
 
 exports.addHorario = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.horario)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Formacao.findOneAndUpdate(
     { _id: req.params.id },
@@ -108,7 +108,7 @@ exports.addHorario = catchAsync(async (req, res, next) => {
 
 exports.removeHorario = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.horario)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Formacao.findOneAndUpdate(
     { _id: req.params.id },

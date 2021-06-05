@@ -31,7 +31,7 @@ const solicitacaoSchema = new mongoose.Schema({
 
 solicitacaoSchema.pre('save', async function(next) {
   this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
-  if (!this.estado) return next(new AppError(ErrorMessage[17].message, 500));
+  if (!this.estado) return next(new AppError(ErrorMessage.ERROR017, 500));
   next();
 });
 

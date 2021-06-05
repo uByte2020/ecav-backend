@@ -1,26 +1,98 @@
-{
-  "ERROR000": "Perfil inválido",
-  "ERROR001": "Ocorreu algum erro no envio de email. Por favor, tente mais tarde!",
-  "ERROR002": "Insira a Senha",
-  "ERROR003": "Insira o Email ou Telemóvel",
-  "ERROR004": "Email ou Senha inválida",
-  "ERROR005": "Você não está com a sessão iniciada. Por favor, inicie sessão",
-  "ERROR006": "O utilizador a quem o token pertence já não existe",
-  "ERROR007": "O utilizador alterou a senha recentemente! Por favor, inicie sessão de novo",
-  "ERROR009": "Você não tem permissão para efectuar esta acção",
-  "ERROR010": "Não existe utilizador com este endereço de email",
-  "ERROR011": "Token inválido ou expirado",
-  "ERROR012": "A senha actual está incorreta",
-  "ERROR013": "Não há serviço para ser adicionado",
-  "ERROR014": "Não foi encontrado documento com este id",
-  "ERROR015": "Apenas imagens são permitidas",
-  "ERROR016": "Está faltando campos obrigatórios",
-  "ERROR017": "Esta rota não é para actualização de senha. Por favor utilize /updateMyPassword",
-  "ERROR018": "Está faltando campos",
-  "ERROR019": "Token inválido! Por favor, faça login novamente",
-  "ERROR020": "Token expirado! Por favor, faça login novamente",
-  "ERROR021": "Por favor, adicione latitude e longitude",
-  "ERROR022": "Está faltando categoria",
-  "ERROR023": "Está faltando estado",
-  "ERROR024": "Está faltando pacote"
-}
+[
+   {
+       "message": "Perfil inválido"
+   },
+
+   {
+       "message": "Ocorreu algum erro no envio de email. Por favor, tente mais tarde!"
+   },
+
+   {
+       "message": "Insira a Senha"
+   },
+
+   {
+        "message": "Insira o Email ou Telemóvel"
+   },
+
+   {
+        "message": "Email ou Senha inválida"
+   },
+
+   {
+        "message": "Você não está com a sessão iniciada. Por favor, inicie sessão"
+   },
+  
+   {
+        "message": "O utilizador a quem o token pertence já não existe"
+   },
+   
+   {
+        "message": "O utilizador alterou a senha recentemente! Por favor, inicie sessão de novo"
+   },
+
+   {
+        "message": "Você não tem permissão para efectuar esta acção"
+   },
+
+   {
+        "message": "Não existe utilizador com este endereço de email"
+   },
+
+   {
+        "message": "Token inválido ou expirado"
+   },
+
+   {
+        "message": "A senha actual está incorreta"
+   },
+
+   {
+        "message": "Não há serviço para ser adicionado"
+   },
+
+   {
+        "message": "Não foi encontrado documento com este id"
+   },
+
+   {
+        "message": "Apenas imagens são permitidas"
+   },
+
+   {
+        "message": "Está faltando campos obrigatórios"
+   },
+   
+   {
+        "message": "Esta rota não é para actualização de senha. Por favor utilize /updateMyPassword"
+   },
+
+   {
+        "message": "Está faltando campos"
+   },
+
+   {
+        "message": "Token inválido! Por favor, faça login novamente"
+   },
+
+   {
+        "message": "Token expirado! Por favor, faça login novamente"
+   },
+
+   {
+        "message":"Por favor, adicione latitude e longitude"
+   },
+
+   {
+        "message":"Está faltando categoria"
+   },
+
+   {
+       "message":"Está faltando estado"
+   },
+ 
+   {
+        "message":"Está faltando pacote"
+   }
+
+]

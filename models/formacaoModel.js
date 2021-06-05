@@ -67,7 +67,7 @@ formacaoSchema.virtual('licoes', {
 
 formacaoSchema.pre('save', async function(next) {
   this.estado = await Estado.findOne({ estadoCode: { $eq: this.estado } });
-  if (!this.estado) return next(new AppError(ErrorMessage[22].message, 400));
+  if (!this.estado) return next(new AppError(ErrorMessage.ERROR022, 400));
   next();
 });
 

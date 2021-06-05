@@ -12,7 +12,7 @@ const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) cb(null, true);
-  else cb(new AppError(ErrorMessage[14].message, 400), false);
+  else cb(new AppError(ErrorMessage.ERROR014, 400), false);
 };
 
 const upload = multer({
@@ -97,7 +97,7 @@ exports.validateFilds = (req, res, next) => {
       'categoria'
     )
   ) {
-    return next(new AppError(ErrorMessage[15].message, 400));
+    return next(new AppError(ErrorMessage.ERROR015, 400));
   }
 
   const fieldsBody = Object.keys(req.body);
@@ -119,7 +119,7 @@ exports.validateFilds = (req, res, next) => {
   }
 
   if (!fieldsBody.includes('price'))
-    return next(new AppError(ErrorMessage[15].message, 400));
+    return next(new AppError(ErrorMessage.ERROR015, 400));
 
   next();
 };
@@ -139,7 +139,7 @@ exports.getServicesWithin = catchAsync(async (req, res, next) => {
   const [latitude, longitude] = coordenates.split(',');
 
   if (!latitude || !longitude) {
-    return next(new AppError(ErrorMessage[20].message));
+    return next(new AppError(ErrorMessage.ERROR020));
   }
 
   const radius = distance / 6378.1;
@@ -183,7 +183,7 @@ exports.getServicesDistances = catchAsync(async (req, res, next) => {
   const [latitude, longitude] = coordenates.split(',');
 
   if (!latitude || !longitude) {
-    return next(new AppError(ErrorMessage[20].message));
+    return next(new AppError(ErrorMessage.ERROR020));
   }
 
   const services = await Service.aggregate([
@@ -238,7 +238,7 @@ exports.like = catchAsync(async (req, res, next) => {
 
 exports.addDisponibilidade = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.disponibilidades)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Service.findOneAndUpdate(
     { _id: req.params.id },
@@ -259,7 +259,7 @@ exports.addDisponibilidade = catchAsync(async (req, res, next) => {
 
 exports.removeDisponibilidade = catchAsync(async (req, res, next) => {
   if (!req.params.id || !req.body.disponibilidade)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const doc = await Service.findOneAndUpdate(
     { _id: req.params.id },

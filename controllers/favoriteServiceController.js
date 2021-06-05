@@ -8,7 +8,7 @@ exports.addToFavorites = catchAsync(async (req, res, next) => {
   if (req.params.servicoId) req.body.servico = req.params.servicoId;
 
   if (!req.body.servico)
-    return next(new AppError(ErrorMessage[12].message, 400));
+    return next(new AppError(ErrorMessage.ERROR012, 400));
 
   const oldDoc = await FavoriteService.find({ user: req.user.id });
   const doc = await FavoriteService.findOneAndUpdate(

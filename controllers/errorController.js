@@ -19,11 +19,11 @@ const handleValidationErrorDB = err => {
 };
 
 const handleJsonWebTokenError = () => {
-  return new AppError(ErrorMessage[18].message, 401);
+  return new AppError(ErrorMessage.ERROR018, 401);
 };
 
 const handleTokenExpiredError = () => {
-  return new AppError(ErrorMessage[19].message, 401);
+  return new AppError(ErrorMessage.ERROR019, 401);
 };
 
 const sendErrorDev = (err, res) => {

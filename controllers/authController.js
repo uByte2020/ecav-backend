@@ -59,7 +59,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.siginup = catchAsync(async (req, res, next) => {
   if (req.body.role * 1 === 0)
     //Não é permitido cadastrar-se como admin
-    return next(new AppError(ErrorMessage[0].message, 500));
+    return next(new AppError(ErrorMessage.ERROR000, 500));
 
   const newUser = await User.create({
     name: req.body.name,
@@ -84,17 +84,17 @@ exports.login = catchAsync(async (req, res, next) => {
   const { email, password, telemovel } = req.body;
 
   if (!password) {
-    return next(new AppError(ErrorMessage[2].message, 400));
+    return next(new AppError(ErrorMessage.ERROR002, 400));
   }
 
   let user = null;
   if (email) user = await User.findOne({ email }).select('+password');
   else if (telemovel)
     user = await User.findOne({ telemovel }).select('+password');
-  else return next(new AppError(ErrorMessage[3].message, 400));
+  else return next(new AppError(ErrorMessage.ERROR003, 400));
 
   if (!user || !(await user.correctPassword(password, user.password)))
-    return next(new AppError(ErrorMessage[4].message, 400));
+    return next(new AppError(ErrorMessage.ERROR004, 400));
 
   if (user.isBloqued)
     return next(
@@ -134,7 +134,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(new AppError(ErrorMessage[5].message, 401));
+    return next(new AppError(ErrorMessage.ERROR005, 401));
   }
 
   // 2) Verification token
@@ -146,12 +146,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next(new AppError(ErrorMessage[6].message, 401));
+    return next(new AppError(ErrorMessage.ERROR006, 401));
   }
 
   // 4) Check if user changed password after the token was issued
   if (await currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(new AppError(ErrorMessage[7].message, 401));
+    return next(new AppError(ErrorMessage.ERROR007, 401));
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
@@ -205,7 +205,7 @@ exports.isLogged = catchAsync(async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role.perfilCode)) {
-      return next(new AppError(ErrorMessage[8].message, 403));
+      return next(new AppError(ErrorMessage.ERROR008, 403));
     }
     next();
   };
@@ -215,7 +215,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POST email
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return next(new AppError(ErrorMessage[9].message, 404));
+    return next(new AppError(ErrorMessage.ERROR009, 404));
   }
 
   // 2) Generate the random reset token
@@ -239,7 +239,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(new AppError(ErrorMessage[1].message), 500);
+    return next(new AppError(ErrorMessage.ERROR001), 500);
   }
 });
 
@@ -256,7 +256,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
   // 2) If token has not expired, and there is user, set the new password
   if (!user) {
-    return next(new AppError(ErrorMessage[10].message, 400));
+    return next(new AppError(ErrorMessage.ERROR010, 400));
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
@@ -276,7 +276,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   // 2) Check if POSTed current password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
-    return next(new AppError(ErrorMessage[11].message, 401));
+    return next(new AppError(ErrorMessage.ERROR011, 401));
   }
 
   // 3) If SourceBuffer, update password
