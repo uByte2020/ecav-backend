@@ -1,9 +1,9 @@
 const nodemailer = require('nodemailer');
 const pug        = require('pug');
 const htmlToText = require('html-to-text')
-const sgMail     = require('@sendgrid/mail')
+// const sgMail     = require('@sendgrid/mail')
 
-sgMail.setApiKey(process.env.SENDGRID_APIKEY);
+// sgMail.setApiKey(process.env.SENDGRID_APIKEY);
 
 module.exports = class Email{
     constructor(user, url) {
@@ -59,7 +59,7 @@ module.exports = class Email{
     }
     
     async sendPasswordReset(){
-        await this.send('passwordReset', 'Your password reset token (Valid for 24h)');
+        await this.send('passwordReset', 'Redefinição da Password (Valid for 24h)');
     }
 }
 

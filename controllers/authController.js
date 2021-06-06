@@ -208,17 +208,25 @@ exports.restrictTo = (...roles) => {
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POST email
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({
+    email: req.body.email
+  });
   if (!user) {
     return next(new AppError(ErrorMessage.ERROR009, 404));
   }
 
   // 2) Generate the random reset token
-  const resetToken = user.createPasswordResetToken();
-  await user.save({ validateBeforeSave: false });
+  const resetToken = await user.createPasswordResetToken();
+  await user.save({
+    validateBeforeSave: false
+  });
+
+  // console.log(resetToken);
+  // console.log(req);
 
   try {
     // 3) Send it to user's email
+    // process.env.CLIENTE_SERVER_URL
     const resetURL = `${req.protocol}://${req.get(
       'host'
     )}/api/v1/users/resetPassword/${resetToken}`;
@@ -227,12 +235,14 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Token sent to email'
+      message: 'Email de recuperação de Password Enviado!'
     });
   } catch (err) {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
-    await user.save({ validateBeforeSave: false });
+    await user.save({
+      validateBeforeSave: false
+    });
 
     return next(new AppError(ErrorMessage.ERROR001), 500);
   }
