@@ -58,7 +58,6 @@ const createSendToken = (user, statusCode, res) => {
 
 exports.siginup = catchAsync(async (req, res, next) => {
   if (req.body.role * 1 === 0)
-    //Não é permitido cadastrar-se como admin
     return next(new AppError(ErrorMessage.ERROR000, 500));
 
   const newUser = await User.create({
@@ -72,8 +71,7 @@ exports.siginup = catchAsync(async (req, res, next) => {
   });
 
   // 3) Send it to user's email
-  const url = `${req.protocol}://${req.get('host')}/api/v1/users/${newUser._id
-    }`;
+  const url = `${process.env.CLIENTE_SERVER_URL}/`;
 
   await new Email(newUser, url).sendWelcome();
   factory.createLogs(newUser._id, User, null, newUser, req.method);
@@ -212,7 +210,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     email: req.body.email
   });
   if (!user) {
-    return next(new AppError(ErrorMessage.ERROR009, 404));
+    return next(new AppError(ErrorMessage.ERROR027, 404));
   }
 
   // 2) Generate the random reset token
@@ -231,7 +229,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     //   'host'
     // )}/api/v1/users/resetPassword/${resetToken}`;
 
-    const resetURL = `${process.env.CLIENTE_SERVER_URL}/${resetToken}`;
+    const resetURL = `${process.env.CLIENTE_SERVER_URL}/new-password/${resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 
@@ -246,7 +244,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       validateBeforeSave: false
     });
 
-    return next(new AppError(ErrorMessage.ERROR027), 404);
+    return next(new AppError(ErrorMessage.ERROR001), 404);
   }
 });
 

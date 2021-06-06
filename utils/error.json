@@ -25,5 +25,5 @@
   "ERROR024": "Está faltando pacote",
   "ERROR025": "Utilizador Bloqueado! Entre em contacto com Administrador",
   "ERROR026": "Utilizador Não Authenticado",
-  "ERROR027": "Email inválida"
+  "ERROR027": "Não existe utilizador registrado com este email!"
 }
