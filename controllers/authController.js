@@ -226,10 +226,12 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   try {
     // 3) Send it to user's email
-    // process.env.CLIENTE_SERVER_URL
-    const resetURL = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/users/resetPassword/${resetToken}`;
+
+    // const resetURL = `${req.protocol}://${req.get(
+    //   'host'
+    // )}/api/v1/users/resetPassword/${resetToken}`;
+
+    const resetURL = `${process.env.CLIENTE_SERVER_URL}/${resetToken}`;
 
     await new Email(user, resetURL).sendPasswordReset();
 
@@ -244,7 +246,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       validateBeforeSave: false
     });
 
-    return next(new AppError(ErrorMessage.ERROR001), 500);
+    return next(new AppError(ErrorMessage.ERROR027), 404);
   }
 });
 

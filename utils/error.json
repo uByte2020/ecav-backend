@@ -24,5 +24,6 @@
   "ERROR023": "Está faltando estado",
   "ERROR024": "Está faltando pacote",
   "ERROR025": "Utilizador Bloqueado! Entre em contacto com Administrador",
-  "ERROR026": "Utilizador Não Authenticado"
+  "ERROR026": "Utilizador Não Authenticado",
+  "ERROR027": "Email inválida"
 }
