@@ -25,5 +25,6 @@
   "ERROR024": "Está faltando pacote",
   "ERROR025": "Utilizador Bloqueado! Entre em contacto com Administrador",
   "ERROR026": "Utilizador Não Authenticado",
-  "ERROR027": "Não existe utilizador registrado com este email!"
+  "ERROR027": "Não existe utilizador registrado com este email!",
+  "ERROR028": "Ocorreu algum erro ao alterar a palavra-passe. Token de redefinição de palavra-passe expirado."
 }
