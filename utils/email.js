@@ -18,13 +18,14 @@ module.exports = class Email{
         return nodemailer.createTransport({
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
-            secure: false,
+            secure: process.env.EMAIL_SECURE,
             auth: {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD
             },
             tls: {
-                rejectUnauthorized: false
+                rejectUnauthorized: false,
+                // secureProtocol: "TLSv1_method"
             }
         });
     }
