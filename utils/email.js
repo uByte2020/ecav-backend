@@ -50,7 +50,7 @@ module.exports = class Email{
                 mailOptions
             );
         }catch(error){
-            console.log(error)
+            // console.log(error)
         }
     }
 
